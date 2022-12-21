@@ -16,8 +16,7 @@ def create_group(all_elf)->list:
 def sum_priorities_group()->int:
     with open("day3.txt", 'r', encoding="utf-8") as f:
         total = 0
-        groups = create_group(f)
-        for group in groups:
+        for group in create_group(f):
             total += priorities[find_badge(group)]
     return total
 
