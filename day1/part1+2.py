@@ -1,4 +1,4 @@
-f=open("input.txt", 'r', encoding="utf-8")
+f=open("day1.txt", 'r', encoding="utf-8")
 food = [[]]
 for line in f:
     if line != '\n':

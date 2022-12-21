@@ -25,7 +25,7 @@ def select(p1:int, action:str)->int:
         
 def final_score()->int:
     total = 0
-    with open("input.txt", 'r', encoding="utf-8") as f:
+    with open("day2.txt", 'r', encoding="utf-8") as f:
         for line in f:
             p1_int = ord(line[0])-64
             p2_str = line[-2]

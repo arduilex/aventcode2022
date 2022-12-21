@@ -8,7 +8,7 @@ def match(p1:int, p2:int)->int:
 
 def final_score()->int:
     total = 0
-    with open("input.txt", 'r', encoding="utf-8") as f:
+    with open("day2.txt", 'r', encoding="utf-8") as f:
         for line in f:
             total += match(ord(line[0])-64, ord(line[-2])-87)
     return total
