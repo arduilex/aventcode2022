@@ -108,7 +108,7 @@ class Cargo:
         return top
 
 
-mc = Cargo(print=1)
+mc = Cargo(print=1) 
 instruction = init_instruction()
 mc.show()
 n = len(instruction["move"])
