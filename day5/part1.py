@@ -40,26 +40,31 @@ def init_instruction():
         "move":[],
         "from":[],
         "to":[]}
-    for instruction_read in instruciton_read():
-        fragment_instruction = instruction_read.split(' ')
+    for line in instruciton_read():
+        fragment_instruction = line.split(' ')
         instruction["move"].append(int(fragment_instruction[1]))
         instruction["from"].append(int(fragment_instruction[3]))
         instruction["to"].append(int(fragment_instruction[5]))
     return instruction
 
 class Cargo:
-    def __init__(self):
+    def __init__(self, print=False):
         self.cargo = init_cargo()
         self.number_row = len(self.cargo[0])
         self.number_column = len(self.cargo)
+        self.counter = 0
+        self.total = 0
+        self.print = print
+        self.speed = 0.025
     def crane(self, n, start, arival):
         for i in range(n):
-            crate_name = self.take(start, self.find_row(start))
-            self.drop(arival, self.find_row(arival)+1, crate_name)
+            crate_name = self.take(start, self.find_top(start))
+            self.drop(arival, self.find_top(arival)+1, crate_name)
             self.cut_high_row()
-            self.show()
-            sleep(0.03)
-    def find_row(self, column):
+            if self.print:
+                self.show()
+                sleep(self.speed)
+    def find_top(self, column):
         for i, row in enumerate(self.cargo[column]):
             if row == ' ':
                 return i-1
@@ -79,32 +84,37 @@ class Cargo:
     def cut_high_row(self):
         maxi_high_row = 0
         for column in range(self.number_column):
-            row_high_result = self.find_row(column)
-            if row_high_result > maxi_high_row:
-                maxi_high_row = row_high_result
-        if maxi_high_row > self.number_row:
-            for i in range(abs(self.number_row)-maxi_high_row):
-                for column in range(self.number_column):
-                    del(self.cargo[column][-1])
-        self.number_row = maxi_high_row
-
+            result_high_row = self.find_top(column)
+            if result_high_row > maxi_high_row:
+                maxi_high_row = result_high_row
+        if self.number_row > maxi_high_row+1:
+            for column in range(self.number_column):
+                del(self.cargo[column][-1])
+            self.number_row -= 1
     def show(self):
         print()
-        for row in range(self.number_row-1, -1, -1):
+        self.counter += 1
+        for row in range(len(self.cargo[0])-1, -1, -1):
             temp = []
             for col in range(self.number_column):
                 temp.append(self.cargo[col][row])
-            print(temp)
-        print("-"*45)
-        #print([str(i) for i in range(1,10)])
+            print(str(row+1)+(" ","")[len(str(row+1))-1], temp)
+        print("-"*48)
+        print("  ",[str(i) for i in range(1,self.number_column+1)], str(self.counter)+"/"+str(self.total))
     def top_crate(self):
-        
+        top = ''
+        for i, column in enumerate(self.cargo):
+            top+=column[self.find_top(i)]
+        return top
 
-mc = Cargo()
+
+mc = Cargo(print=1)
 instruction = init_instruction()
-
 mc.show()
-sleep(1)
-for i in range(len(instruction["move"])):
+n = len(instruction["move"])
+mc.total = n
+for i in range(n):
     mc.crane(instruction["move"][i], instruction["from"][i]-1, instruction["to"][i]-1)
-print(mc.top)
+    mc.counter = i
+mc.show()
+print(mc.top_crate())
