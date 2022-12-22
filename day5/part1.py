@@ -108,11 +108,11 @@ class Cargo:
         return top
 
 
-mc = Cargo(print=True) 
+mc = Cargo(print=1)
 instruction = init_instruction()
-mc.show()
 n = len(instruction["move"])
 mc.total = n
+mc.show()
 for i in range(n):
     mc.crane(instruction["move"][i], instruction["from"][i]-1, instruction["to"][i]-1)
     mc.counter = i
