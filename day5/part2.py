@@ -101,7 +101,7 @@ class Cargo:
             temp = []
             for col in range(self.number_column):
                 temp.append(self.cargo[col][row])
-            print(str(row+1)+(" ","")[len(str(row+1))-1], temp)
+            print((" ","")[len(str(row+1))-1]+str(row+1), temp)
         print("-"*48)
         print("  ",[str(i) for i in range(1,self.number_column+1)], str(self.counter)+"/"+str(self.total))
     def top_crate(self):
