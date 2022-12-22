@@ -56,10 +56,10 @@ class Cargo:
         self.total = 0
         self.graphics = print
         self.speed = 0.025
-    def crane(self, n, start, arival):
+    def crane(self, n, depart, arival):
         crate_stack = []
         for i in range(n):
-            crate_stack.append(self.take(start, self.find_top(start)))
+            crate_stack.append(self.take(depart, self.find_top(depart)))
         crate_stack.reverse()
         for crate in crate_stack:
             self.drop(arival, self.find_top(arival)+1, crate)
@@ -97,7 +97,6 @@ class Cargo:
                 self.number_row -= 1
     def show(self):
         print()
-        self.counter += 1
         for row in range(len(self.cargo[0])-1, -1, -1):
             temp = []
             for col in range(self.number_column):
@@ -110,7 +109,6 @@ class Cargo:
         for i, column in enumerate(self.cargo):
             top+=column[self.find_top(i)]
         return top
-
 
 mc = Cargo(print=0)
 instruction = init_instruction()

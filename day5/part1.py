@@ -52,15 +52,18 @@ class Cargo:
         self.cargo = init_cargo()
         self.number_row = len(self.cargo[0])
         self.number_column = len(self.cargo)
-        self.counter = 0
+        self.counter = 1
         self.total = 0
-        self.print = print
+        self.graphics = print
         self.speed = 0.025
-    def crane(self, n, start, arival):
+    def crane(self, n, depart, arival):
         for i in range(n):
-            crate_name = self.take(start, self.find_top(start))
+            take_row = self.find_top(depart)
+            if take_row == -1:
+                input()
+            crate_name = self.take(depart, take_row)
             self.drop(arival, self.find_top(arival)+1, crate_name)
-            if self.print:
+            if self.graphics:
                 self.cut_blank_row()
                 self.show()
                 sleep(self.speed)
@@ -93,7 +96,6 @@ class Cargo:
             self.number_row -= 1
     def show(self):
         print()
-        self.counter += 1
         for row in range(len(self.cargo[0])-1, -1, -1):
             temp = []
             for col in range(self.number_column):
@@ -107,7 +109,6 @@ class Cargo:
             top+=column[self.find_top(i)]
         return top
 
-
 mc = Cargo(print=1)
 instruction = init_instruction()
 n = len(instruction["move"])
@@ -115,6 +116,6 @@ mc.total = n
 mc.show()
 for i in range(n):
     mc.crane(instruction["move"][i], instruction["from"][i]-1, instruction["to"][i]-1)
-    mc.counter = i
+    mc.counter = i+1
 mc.show()
 print("\n-->",mc.top_crate())
