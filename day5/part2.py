@@ -54,16 +54,19 @@ class Cargo:
         self.number_column = len(self.cargo)
         self.counter = 0
         self.total = 0
-        self.print = print
+        self.graphics = print
         self.speed = 0.025
     def crane(self, n, start, arival):
+        crate_stack = []
         for i in range(n):
-            crate_name = self.take(start, self.find_top(start))
-            self.drop(arival, self.find_top(arival)+1, crate_name)
-            if self.print:
-                self.cut_blank_row()
-                self.show()
-                sleep(self.speed)
+            crate_stack.append(self.take(start, self.find_top(start)))
+        crate_stack.reverse()
+        for crate in crate_stack:
+            self.drop(arival, self.find_top(arival)+1, crate)
+        if self.graphics:
+            self.cut_blank_row()
+            self.show()
+            sleep(self.speed)
     def find_top(self, column):
         for i, row in enumerate(self.cargo[column]):
             if row == ' ':
@@ -88,9 +91,10 @@ class Cargo:
             if result_high_row > maxi_high_row:
                 maxi_high_row = result_high_row
         if self.number_row > maxi_high_row+1:
-            for column in range(self.number_column):
-                del(self.cargo[column][-1])
-            self.number_row -= 1
+            for i in range(abs(self.number_row-maxi_high_row)-1):
+                for column in range(self.number_column):    
+                    del(self.cargo[column][-1])
+                self.number_row -= 1
     def show(self):
         print()
         self.counter += 1
@@ -108,7 +112,7 @@ class Cargo:
         return top
 
 
-mc = Cargo(print=True) 
+mc = Cargo(print=1)
 instruction = init_instruction()
 mc.show()
 n = len(instruction["move"])
@@ -116,5 +120,6 @@ mc.total = n
 for i in range(n):
     mc.crane(instruction["move"][i], instruction["from"][i]-1, instruction["to"][i]-1)
     mc.counter = i
+mc.cut_blank_row()
 mc.show()
 print("\n-->",mc.top_crate())
