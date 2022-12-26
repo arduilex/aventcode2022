@@ -1,3 +1,3 @@
 # aventcode2022
-I do the [advent code](https://adventofcode.com/) of 2022  
+I do the [advent of code](https://adventofcode.com/) for 2022  
 Let's try !
