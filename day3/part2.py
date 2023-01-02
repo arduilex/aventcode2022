@@ -29,4 +29,4 @@ for i, unicode_letter in enumerate(range(97, 123), start=1):
 for i, unicode_letter in enumerate(range(65, 91), start=27):
     priorities[chr(unicode_letter)] = i
     
-print(sum_priorities_group())    
+print(sum_priorities_group())
