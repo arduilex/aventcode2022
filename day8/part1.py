@@ -5,14 +5,14 @@ def read_file(filename):
             yield line
 
 class Forest:
-    def __init__(self):
-        self.forest_map = self.generate_map()
+    def __init__(self, filename):
+        self.forest_map = self.generate_map(filename)
         self.row_size = len(self.forest_map)
         self.col_size = len(self.forest_map[0])
 
-    def generate_map(self):
+    def generate_map(self, filename):
         gmap = []
-        for line in read_file("day8"):
+        for line in read_file(filename):
             gmap.append([])
             for tree_high in line:
                 gmap[-1].append(int(tree_high))
@@ -53,5 +53,7 @@ class Forest:
             column_list.append(row[column])
         return column_list
 
-myForest = Forest()
-print(myForest.count_visible_tree())
+
+if __name__ == "__main__":
+    myForest = Forest("day8")
+    print(myForest.count_visible_tree())
