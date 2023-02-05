@@ -56,3 +56,8 @@ class Forest:
         for row in self.forest_map:
             column_list.append(row[column])
         return column_list
+
+
+if __name__ == "__main__":
+    myForest = Forest("day8")
+    print(myForest.count_visible_tree())
