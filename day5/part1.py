@@ -55,7 +55,7 @@ class Cargo:
         self.counter = 1
         self.total = 0
         self.graphics = print
-        self.speed = 0.025
+        self.speed = 0.026
     def crane(self, n, depart, arival):
         for i in range(n):
             take_row = self.find_top(depart)

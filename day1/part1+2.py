@@ -9,6 +9,5 @@ somme = [0]*len(food)
 for i, miam in enumerate(food):
     somme[i] = sum(miam)
 somme = sorted(somme, reverse=True)
-
 print("part1:",somme[0])
 print("part2:",sum(somme[0:3]))

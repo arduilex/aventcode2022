@@ -1,4 +1,4 @@
-def find_alone_item(rucksack_stuff:str)->str:
+def find_alone_item(rucksack_stuff: str) -> str:
     n = int(len(rucksack_stuff)/2)
     compartment1 = rucksack_stuff[:n]
     compartment2 = rucksack_stuff[n:]
@@ -6,8 +6,9 @@ def find_alone_item(rucksack_stuff:str)->str:
         if item in compartment2:
             alone_item = item
     return alone_item
-    
-def sum_priorities()->int:
+
+
+def sum_priorities() -> int:
     with open("day3.txt", 'r', encoding="utf-8") as f:
         total = 0
         for line in f:
@@ -15,9 +16,10 @@ def sum_priorities()->int:
             total += priorities[item]
     return total
 
+
 priorities = {}
 # chr translate unicode code in a letter of the unicode table
-# a-z -> 97-122 
+# a-z -> 97-122
 for i, unicode_letter in enumerate(range(97, 123), start=1):
     priorities[chr(unicode_letter)] = i
 # A-Z -> 65-90
